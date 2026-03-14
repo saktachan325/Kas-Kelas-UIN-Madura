@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kas kelas uin madura-v1773465632157';
+const CACHE_NAME = 'kas kelas uin madura-v1773466571227';
 const urlsToCache = [
   './',
   './index.html',
