@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Buku Kas Kelas Mahasiswa</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,6 +16,10 @@
         }
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         
+        /* Fix Layout iPhone / HP Modern */
+        .pb-safe { padding-bottom: calc(0.75rem + env(safe-area-inset-bottom)); }
+        
+        /* Pengaturan Cetak PDF Profesional */
         @media print {
             @page { margin: 1.5cm; }
             body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -29,12 +33,12 @@
     <link rel="apple-touch-icon" href="icon-192.png">
   
 </head>
-<body class="bg-gray-900 font-sans min-h-screen flex justify-center print:bg-white print:block">
+<body class="bg-gray-900 font-sans min-h-screen flex justify-center print:bg-white print:block overflow-hidden">
 
     <!-- ========================================= -->
     <!-- TAMPILAN LAPORAN UNTUK CETAK PDF -->
     <!-- ========================================= -->
-    <div id="print-layout" class="hidden print:block w-full bg-white text-black font-serif">
+    <div id="print-layout" class="hidden print:block w-full bg-white text-black font-serif overflow-visible">
         <div class="text-center mb-6 border-b-4 border-double border-black pb-4">
             <h1 class="text-2xl font-bold uppercase tracking-widest">Laporan Keuangan Kas Kelas</h1>
             <p class="text-md mt-1 font-semibold">Program Studi / Fakultas</p>
@@ -107,10 +111,10 @@
     <!-- ========================================= -->
     <!-- CONTAINER APLIKASI MOBILE -->
     <!-- ========================================= -->
-    <div class="w-full max-w-md bg-gray-50 h-screen flex flex-col shadow-2xl relative overflow-hidden print:hidden">
+    <div class="w-full max-w-md bg-gray-50 h-[100dvh] flex flex-col shadow-2xl overflow-hidden print:hidden">
         
         <!-- HEADER -->
-        <header class="bg-indigo-600 text-white p-6 rounded-b-[2rem] shadow-lg z-10 transition-colors duration-300" id="main-header">
+        <header class="bg-indigo-600 text-white p-6 rounded-b-[2rem] shadow-lg z-10 shrink-0 transition-colors duration-300" id="main-header">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h1 class="text-2xl font-bold tracking-tight">Kas Mahasiswa</h1>
@@ -118,7 +122,7 @@
                         <button id="btn-prev-week" onclick="changeWeek(-1)" class="p-1.5 bg-indigo-700/50 rounded-lg hover:bg-indigo-800 disabled:opacity-30 disabled:cursor-not-allowed transition" title="Mundur ke Minggu Sebelumnya">
                             <i data-lucide="chevron-left" class="w-5 h-5"></i>
                         </button>
-                        <span id="header-week" class="font-bold w-24 text-center text-sm">Minggu ke-2</span>
+                        <span id="header-week" class="font-bold w-24 text-center text-sm">Minggu ke-1</span>
                         <button id="btn-next-week" onclick="changeWeek(1)" class="p-1.5 bg-indigo-700/50 rounded-lg hover:bg-indigo-800 disabled:opacity-30 disabled:cursor-not-allowed transition" title="Maju ke Minggu Selanjutnya">
                             <i data-lucide="chevron-right" class="w-5 h-5"></i>
                         </button>
@@ -149,7 +153,7 @@
         </header>
 
         <!-- MAIN CONTENT AREA -->
-        <main class="flex-1 overflow-y-auto px-4 pt-6 pb-24">
+        <main class="flex-1 overflow-y-auto px-4 pt-6 pb-6 relative">
             
             <!-- TAB: DASHBOARD -->
             <div id="tab-dashboard" class="space-y-6 fade-in block">
@@ -208,7 +212,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Nominal (Rp)</label>
-                        <input type="number" id="income-amount" required placeholder="Contoh: 10000" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-indigo-500 transition"/>
+                        <input type="number" id="income-amount" required min="1" placeholder="Contoh: 10000" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-indigo-500 transition"/>
                         <div class="flex gap-2 mt-2">
                             <button type="button" onclick="document.getElementById('income-amount').value = state.kasSettings.weeklyNominal" class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full"><span id="btn-1-week">1 Minggu</span></button>
                             <button type="button" onclick="document.getElementById('income-amount').value = state.kasSettings.weeklyNominal * 2" class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full">2 Minggu</button>
@@ -234,7 +238,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Nominal Pengeluaran (Rp)</label>
-                        <input type="number" id="expense-amount" required placeholder="Contoh: 25000" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-red-500 transition"/>
+                        <input type="number" id="expense-amount" required min="1" placeholder="Contoh: 25000" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-red-500 transition"/>
                         <p class="text-xs text-gray-500 mt-2">Saldo tersedia: <span class="font-bold text-indigo-600" id="expense-available-balance">Rp 0</span></p>
                     </div>
                     <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-xl transition flex justify-center items-center mt-2">
@@ -248,22 +252,26 @@
             <div id="tab-members" class="fade-in hidden space-y-6">
                 
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="text-md font-bold text-gray-800 mb-4 flex items-center">
-                        <i data-lucide="settings" class="w-5 h-5 mr-2 text-gray-500"></i> Pengaturan Kas Utama
+                    <h3 class="text-md font-bold text-gray-800 mb-4 flex items-center justify-between">
+                        <span class="flex items-center"><i data-lucide="settings" class="w-5 h-5 mr-2 text-gray-500"></i> Pengaturan Kas</span>
+                        <!-- TOMBOL RESET DATA -->
+                        <button onclick="resetData()" class="text-xs bg-red-100 text-red-600 hover:bg-red-200 px-3 py-1.5 rounded-lg font-bold flex items-center transition" title="Hapus semua data dan mulai baru">
+                            <i data-lucide="power" class="w-3 h-3 mr-1"></i> Mulai Baru
+                        </button>
                     </h3>
                     <div class="space-y-4">
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Saldo Kas Smt. Lalu (Rp)</label>
                             <div class="flex">
                                 <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">Rp</span>
-                                <input type="number" id="setting-prev-balance" value="0" onchange="updateSettings()" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-indigo-500 block flex-1 w-full text-sm border-gray-300 p-2.5">
+                                <input type="number" min="0" id="setting-prev-balance" onchange="updateSettings()" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-indigo-500 block flex-1 w-full text-sm border-gray-300 p-2.5">
                             </div>
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Tarif Kas Mingguan (Rp)</label>
                             <div class="flex">
                                 <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">Rp</span>
-                                <input type="number" id="setting-weekly-fee" value="5000" onchange="updateSettings()" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-indigo-500 block flex-1 w-full text-sm border-gray-300 p-2.5">
+                                <input type="number" min="0" id="setting-weekly-fee" onchange="updateSettings()" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-indigo-500 block flex-1 w-full text-sm border-gray-300 p-2.5">
                             </div>
                         </div>
                     </div>
@@ -287,7 +295,7 @@
         </main>
 
         <!-- BOTTOM NAVIGATION -->
-        <nav class="absolute bottom-0 w-full bg-white border-t border-gray-100 flex justify-around p-2 pb-6 z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+        <nav class="w-full bg-white border-t border-gray-100 flex justify-around p-2 pb-safe z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] shrink-0">
             <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn flex flex-col items-center justify-center w-16 h-12 text-indigo-600 transition-colors duration-200">
                 <div class="icon-container scale-110 mb-1 transition-transform duration-200"><i data-lucide="wallet" class="w-6 h-6"></i></div>
                 <span class="label-text text-[9px] font-bold opacity-100 transition-opacity duration-200">Beranda</span>
@@ -309,36 +317,35 @@
     </div>
 
     <!-- ========================================= -->
-    <!-- LOGIKA JAVASCRIPT APLIKASI -->
+    <!-- LOGIKA JAVASCRIPT APLIKASI KAS -->
     <!-- ========================================= -->
     <script>
-        // 1. STATE MANAGEMENT
-        let state = {
+        // 1. STATE MANAGEMENT DENGAN PENGAMANAN LOCAL STORAGE
+        
+        // Data kosongan (Fresh Start)
+        const defaultState = {
             activeTab: 'dashboard',
             kasSettings: {
-                previousBalance: 150000,
+                previousBalance: 0,
                 weeklyNominal: 5000,
-                viewingWeek: 3,
-                maxWeek: 3
+                viewingWeek: 1,
+                maxWeek: 1
             },
-            members: [
-                { id: 1, name: 'Ahmad Faisal' },
-                { id: 2, name: 'Siti Nurhaliza' },
-                { id: 3, name: 'Kevin Pratama' },
-                { id: 4, name: 'Nadia Putri' }
-            ],
-            transactions: [
-                { id: 105, type: 'income', memberId: 4, amount: 15000, date: new Date().toISOString(), description: 'Pembayaran Kas (Nadia Putri)', week: 3 },
-                { id: 104, type: 'expense', memberId: null, amount: 25000, date: new Date(Date.now() - 43200000).toISOString(), description: 'Print Makalah Kelompok 1', week: 2 },
-                { id: 103, type: 'income', memberId: 3, amount: 5000, date: new Date(Date.now() - 86400000).toISOString(), description: 'Pembayaran Kas (Kevin Pratama)', week: 2 },
-                { id: 102, type: 'income', memberId: 2, amount: 10000, date: new Date(Date.now() - 172800000).toISOString(), description: 'Pembayaran Kas (Siti Nurhaliza)', week: 1 },
-                { id: 101, type: 'income', memberId: 1, amount: 5000, date: new Date(Date.now() - 259200000).toISOString(), description: 'Pembayaran Kas (Ahmad Faisal)', week: 1 }
-            ]
+            members: [],
+            transactions: []
+        };
+
+        // Mengambil data aman dari Local Storage. Jika tidak ada, pakai default kosongan.
+        let state = JSON.parse(localStorage.getItem('bukuKasDataApp')) || defaultState;
+
+        // FUNGSI AUTO-SAVE INTI (Dipanggil setiap kali ada 1 debu perubahan)
+        const saveState = () => {
+            localStorage.setItem('bukuKasDataApp', JSON.stringify(state));
         };
 
         // 2. HELPER FUNCTIONS
         const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
-        const formatDate = (isoString) => new Date(isoString).toLocaleDateString('id-ID');
+        const formatDate = (isoString) => new Date(isoString).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
 
         // 3. FUNGSI PERHITUNGAN UTAMA
         const getStats = () => {
@@ -376,10 +383,12 @@
             const mw = state.kasSettings.maxWeek;
             const isHistoryMode = vw < mw;
 
+            // Header Tampilan
             document.getElementById('header-week').innerText = `Minggu ke-${vw}`;
             document.getElementById('header-balance').innerText = formatRupiah(stats.currentBalance);
             document.getElementById('expense-available-balance').innerText = formatRupiah(stats.currentBalance);
             
+            // Tombol Hapus Minggu
             const btnDeleteWeek = document.getElementById('btn-delete-week');
             if (vw === mw && mw > 1) {
                 btnDeleteWeek.classList.remove('hidden');
@@ -387,6 +396,7 @@
                 btnDeleteWeek.classList.add('hidden');
             }
 
+            // Peringatan Mode Riwayat
             const headerEl = document.getElementById('main-header');
             const warnEl = document.getElementById('history-warning');
             if (isHistoryMode) {
@@ -402,6 +412,7 @@
             document.getElementById('btn-prev-week').disabled = vw <= 1;
             document.getElementById('btn-next-week').disabled = vw >= mw;
 
+            // Form Text
             document.getElementById('income-week-info').innerHTML = `<i data-lucide="info" class="w-4 h-4 mr-2"></i> Pemasukan ini akan dicatat untuk <b>Minggu ke-${vw}</b>.`;
             document.getElementById('expense-week-info').innerHTML = `<i data-lucide="info" class="w-4 h-4 mr-2"></i> Pengeluaran ini akan dicatat untuk <b>Minggu ke-${vw}</b>.`;
             document.getElementById('btn-1-week').innerText = `1 Minggu (${formatRupiah(state.kasSettings.weeklyNominal)})`;
@@ -417,16 +428,19 @@
             document.getElementById('card-income').innerText = formatRupiah(stats.totalIncome);
             document.getElementById('card-expense').innerText = formatRupiah(stats.totalExpense);
 
+            // Tabel Tunggakan Beranda
             const debtsContainer = document.getElementById('dashboard-debts');
             const debtors = stats.memberStats.filter(m => m.debt > 0);
-            if (debtors.length === 0) {
+            if (state.members.length === 0) {
+                debtsContainer.innerHTML = `<div class="p-6 text-center text-gray-400 text-sm italic">Belum ada anggota kelas. Silakan tambah anggota di menu "Anggota".</div>`;
+            } else if (debtors.length === 0) {
                 debtsContainer.innerHTML = `<div class="p-6 text-center text-gray-500 text-sm">Luar biasa! Seluruh anggota aktif sudah lunas s/d Minggu ${vw}. 🎉</div>`;
             } else {
                 debtsContainer.innerHTML = `<div class="divide-y divide-gray-50">` + 
                     debtors.map(m => `
                         <div class="p-4 flex justify-between items-center hover:bg-red-50/30 transition">
                             <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold mr-3">${m.name.charAt(0)}</div>
+                                <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold mr-3">${m.name.charAt(0).toUpperCase()}</div>
                                 <div>
                                     <p class="font-semibold text-gray-800 text-sm">${m.name}</p>
                                     <p class="text-xs text-gray-400">Belum lunas s/d Mg. ${vw}</p>
@@ -437,38 +451,54 @@
                     `).join('') + `</div>`;
             }
 
+            // RIWAYAT TRANSAKSI BERANDA (Dengan Fitur Hapus Satuan)
             document.getElementById('tx-history-title').innerText = isHistoryMode ? `Transaksi s/d Minggu ${vw}` : `Riwayat Transaksi Terakhir`;
             const txContainer = document.getElementById('dashboard-transactions');
             if (stats.visibleTx.length === 0) {
                 txContainer.innerHTML = `<div class="p-4 text-center text-gray-400 text-sm italic border border-dashed rounded-xl">Belum ada transaksi s/d minggu ini.</div>`;
             } else {
-                txContainer.innerHTML = stats.visibleTx.slice(0, 10).map(tx => `
+                txContainer.innerHTML = stats.visibleTx.slice(0, 15).map(tx => `
                     <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center ${tx.week === vw && isHistoryMode ? 'border-amber-400 bg-amber-50' : ''}">
-                        <div class="flex items-center">
-                            <div class="p-2 rounded-xl mr-3 ${tx.type === 'income' ? 'bg-blue-100 text-blue-600' : 'bg-red-100 text-red-500'}">
+                        <div class="flex items-center flex-1 min-w-0">
+                            <div class="p-2 rounded-xl mr-3 shrink-0 ${tx.type === 'income' ? 'bg-blue-100 text-blue-600' : 'bg-red-100 text-red-500'}">
                                 <i data-lucide="${tx.type === 'income' ? 'arrow-down-circle' : 'arrow-up-circle'}" class="w-5 h-5"></i>
                             </div>
-                            <div>
-                                <p class="font-semibold text-gray-800 text-sm max-w-[150px] truncate" title="${tx.description}">${tx.description}</p>
-                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Mg. ke-${tx.week} • ${formatDate(tx.date)}</p>
+                            <div class="truncate mr-2">
+                                <p class="font-semibold text-gray-800 text-sm truncate" title="${tx.description}">${tx.description}</p>
+                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Mg. ${tx.week} • ${formatDate(tx.date)}</p>
                             </div>
                         </div>
-                        <p class="font-bold text-sm ${tx.type === 'income' ? 'text-blue-600' : 'text-red-500'}">
-                            ${tx.type === 'income' ? '+' : '-'}${formatRupiah(tx.amount)}
-                        </p>
+                        <div class="flex flex-col items-end shrink-0">
+                            <p class="font-bold text-sm mb-1 ${tx.type === 'income' ? 'text-blue-600' : 'text-red-500'}">
+                                ${tx.type === 'income' ? '+' : '-'}${formatRupiah(tx.amount)}
+                            </p>
+                            <!-- Tombol Hapus Transaksi Satuan -->
+                            <button onclick="deleteSingleTransaction(${tx.id})" class="text-gray-300 hover:text-red-500 transition px-1" title="Batalkan Transaksi Ini">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
                     </div>
                 `).join('');
             }
 
+            // Dropdown Form Pemasukan
             const memberSelect = document.getElementById('income-member-id');
-            memberSelect.innerHTML = `<option value="">-- Pilih Anggota --</option>` + 
+            if(state.members.length === 0) {
+                 memberSelect.innerHTML = `<option value="">-- Tambah anggota dulu di menu Anggota --</option>`;
+            } else {
+                 memberSelect.innerHTML = `<option value="">-- Pilih Anggota --</option>` + 
                 state.members.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+            }
 
+            // Daftar Anggota Tab Setting
             const membersList = document.getElementById('members-list');
-            membersList.innerHTML = stats.memberStats.map(m => `
+            if (state.members.length === 0) {
+                 membersList.innerHTML = `<div class="p-6 text-center text-gray-400 text-sm italic">Belum ada anggota.</div>`;
+            } else {
+                 membersList.innerHTML = stats.memberStats.map(m => `
                 <div class="p-4 flex justify-between items-center hover:bg-gray-50">
                     <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold mr-3">${m.name.charAt(0)}</div>
+                        <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold mr-3">${m.name.charAt(0).toUpperCase()}</div>
                         <div>
                             <p class="font-semibold text-gray-800 text-sm">${m.name}</p>
                             <p class="text-[10px] text-gray-400">Total byr: ${formatRupiah(m.totalPaid)}</p>
@@ -479,15 +509,17 @@
                             ? `<span class="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-1 rounded-full">Hutang ${formatRupiah(m.debt)}</span>`
                             : `<span class="bg-indigo-100 text-indigo-600 text-[10px] font-bold px-2 py-1 rounded-full">Lunas ✓</span>`
                         }
-                        <!-- Tombol Keluarkan Anggota & Tarik Saldo -->
                         <button onclick="removeMember(${m.id})" class="text-gray-400 hover:text-red-500 hover:bg-red-50 p-1.5 rounded-lg transition" title="Keluarkan Anggota & Tarik Uangnya">
                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                         </button>
                     </div>
                 </div>
             `).join('');
+            }
 
-            // CETAK PDF RENDER
+            // ==========================================
+            // CETAK PDF RENDER (Tidak Boleh Ada Ikon Sampah)
+            // ==========================================
             document.getElementById('print-date').innerText = `Tanggal Cetak: ${new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
             document.getElementById('print-week-info').innerText = `Periode Pembukuan s/d Minggu ke-${vw}`;
             document.getElementById('print-tx-week').innerText = vw;
@@ -520,12 +552,15 @@
                 `).join('');
             }
 
+            // WAJIB: Render ulang ikon setelah menyuntikkan HTML baru
             lucide.createIcons();
         };
 
         // 5. FUNGSI NAVIGASI TAB
         const switchTab = (tabName) => {
             state.activeTab = tabName;
+            saveState(); // SAVE TAB AKTIF
+
             ['dashboard', 'income', 'expense', 'members'].forEach(tab => {
                 document.getElementById(`tab-${tab}`).classList.add('hidden');
                 document.getElementById(`tab-${tab}`).classList.remove('block');
@@ -543,11 +578,35 @@
             });
         };
 
-        // 6. EVENT HANDLERS
+        // 6. EVENT HANDLERS (Aksi-aksi Penting)
+
+        // HAPUS TRANSAKSI SATUAN (BARU)
+        const deleteSingleTransaction = (txId) => {
+            const isConfirmed = confirm("Apakah Anda yakin ingin menghapus / membatalkan transaksi ini?\n\nSaldo akan otomatis disesuaikan kembali.");
+            if (isConfirmed) {
+                state.transactions = state.transactions.filter(t => t.id !== txId);
+                saveState(); // AUTO SAVE PENTING
+                renderApp();
+            }
+        }
+
+        // RESET SELURUH DATA / MULAI SEMESTER BARU (BARU)
+        const resetData = () => {
+            const prompt1 = confirm("⚠️ PERINGATAN BAHAYA!\n\nApakah Anda yakin ingin MENGHAPUS SEMUA DATA (Anggota, Transaksi, Saldo) dan memulai dari nol?\n\nSangat disarankan Anda sudah mencetak/PDF laporan terakhir sebelum melakukan ini.");
+            if (prompt1) {
+                const prompt2 = confirm("Tindakan ini TIDAK BISA DIBATALKAN. Anda benar-benar yakin?");
+                if (prompt2) {
+                    localStorage.removeItem('bukuKasDataApp'); // Bersihkan memori HP
+                    location.reload(); // Muat ulang layar ke setingan pabrik
+                }
+            }
+        }
+        
         const changeWeek = (delta) => {
             const newWeek = state.kasSettings.viewingWeek + delta;
             if (newWeek >= 1 && newWeek <= state.kasSettings.maxWeek) {
                 state.kasSettings.viewingWeek = newWeek;
+                saveState(); // AUTO SAVE
                 renderApp();
             }
         };
@@ -555,6 +614,7 @@
         const addNewWeek = () => {
             state.kasSettings.maxWeek += 1;
             state.kasSettings.viewingWeek = state.kasSettings.maxWeek;
+            saveState(); // AUTO SAVE
             renderApp();
             document.querySelector('main').scrollTop = 0;
         };
@@ -566,8 +626,8 @@
                     state.transactions = state.transactions.filter(t => t.week !== state.kasSettings.maxWeek);
                     state.kasSettings.maxWeek -= 1;
                     state.kasSettings.viewingWeek = state.kasSettings.maxWeek;
+                    saveState(); // AUTO SAVE
                     renderApp();
-                    alert('Minggu berhasil dihapus.');
                 }
             }
         };
@@ -575,8 +635,9 @@
         const updateSettings = () => {
             const newPrevBalance = parseInt(document.getElementById('setting-prev-balance').value);
             const newWeeklyFee = parseInt(document.getElementById('setting-weekly-fee').value);
-            if(!isNaN(newPrevBalance)) state.kasSettings.previousBalance = newPrevBalance;
-            if(!isNaN(newWeeklyFee)) state.kasSettings.weeklyNominal = newWeeklyFee;
+            if(!isNaN(newPrevBalance) && newPrevBalance >= 0) state.kasSettings.previousBalance = newPrevBalance;
+            if(!isNaN(newWeeklyFee) && newWeeklyFee >= 0) state.kasSettings.weeklyNominal = newWeeklyFee;
+            saveState(); // AUTO SAVE
             renderApp();
         };
 
@@ -587,27 +648,21 @@
             if (name) {
                 state.members.push({ id: Date.now(), name: name });
                 input.value = '';
+                saveState(); // AUTO SAVE
                 renderApp();
             }
         };
 
-        // ==========================================
-        // FUNGSI KELUARKAN ANGGOTA & TARIK UANGNYA
-        // ==========================================
         const removeMember = (id) => {
             const member = state.members.find(m => m.id === id);
             if (member) {
-                // Tampilkan peringatan yang jelas bahwa saldo akan dipotong
-                const isConfirmed = confirm(`Keluarkan "${member.name}" dari daftar anggota kelas?\n\nPERHATIAN: Sesuai aturan, SEMUA uang yang pernah disetorkan oleh ${member.name} akan DIHAPUS dari sistem, dan TOTAL SALDO KAS AKAN OTOMATIS BERKURANG (uang dianggap telah dikembalikan kepadanya).`);
+                const isConfirmed = confirm(`Keluarkan "${member.name}" dari daftar anggota kelas?\n\nPERHATIAN: Sesuai aturan, SEMUA uang yang pernah disetorkan oleh ${member.name} akan DIHAPUS dari sistem, dan TOTAL SALDO KAS AKAN OTOMATIS BERKURANG.`);
                 
                 if (isConfirmed) {
-                    // 1. Hapus anggotanya dari daftar
                     state.members = state.members.filter(m => m.id !== id);
-                    // 2. Hapus semua riwayat pemasukannya dari tabel transaksi (ini yang bikin saldo otomatis turun)
                     state.transactions = state.transactions.filter(t => t.memberId !== id);
-                    
+                    saveState(); // AUTO SAVE PENTING
                     renderApp();
-                    alert(`Selesai! ${member.name} telah dikeluarkan dan uangnya berhasil ditarik dari hitungan Saldo Kas.`);
                 }
             }
         };
@@ -617,7 +672,7 @@
             const memberId = parseInt(document.getElementById('income-member-id').value);
             const amount = parseInt(document.getElementById('income-amount').value);
             
-            if (memberId && amount) {
+            if (memberId && amount && amount > 0) {
                 const member = state.members.find(m => m.id === memberId);
                 state.transactions.unshift({
                     id: Date.now(),
@@ -630,6 +685,7 @@
                 });
                 
                 document.getElementById('form-income').reset();
+                saveState(); // AUTO SAVE
                 renderApp();
                 switchTab('dashboard');
             }
@@ -642,11 +698,11 @@
             
             const stats = getStats();
             if (amount > stats.currentBalance) {
-                alert('Peringatan: Total Saldo Akhir pada minggu ini tidak mencukupi!');
+                alert('Peringatan: Total Saldo Akhir pada minggu ini tidak mencukupi untuk pengeluaran tersebut!');
                 return;
             }
 
-            if (desc && amount) {
+            if (desc && amount && amount > 0) {
                 state.transactions.unshift({
                     id: Date.now(),
                     type: 'expense',
@@ -658,16 +714,24 @@
                 });
                 
                 document.getElementById('form-expense').reset();
+                saveState(); // AUTO SAVE
                 renderApp();
                 switchTab('dashboard');
             }
         };
 
+        // 7. INISIALISASI SAAT HALAMAN DIBUKA (REFRESH)
         window.onload = () => {
             lucide.createIcons();
+            
+            // Masukkan data dari localstorage ke inputan setting di tab Anggota
             document.getElementById('setting-prev-balance').value = state.kasSettings.previousBalance;
             document.getElementById('setting-weekly-fee').value = state.kasSettings.weeklyNominal;
+            
             renderApp();
+            
+            // Pindahkan langsung ke tab yang terakhir kali dibuka sebelum di-refresh
+            switchTab(state.activeTab);
         };
     </script>
 
@@ -687,4 +751,5 @@
   
 </body>
 </html>
+
 

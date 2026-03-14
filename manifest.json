@@ -1,6 +1,6 @@
 {
-  "name": "Kas Kelas UIN Madura",
-  "short_name": "Kas Kelas UIN Madura",
+  "name": "kas kelas UIN madura",
+  "short_name": "kas kelas UIN madura",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
