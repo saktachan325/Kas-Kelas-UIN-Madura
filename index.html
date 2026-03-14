@@ -33,48 +33,49 @@
     <link rel="apple-touch-icon" href="icon-192.png">
   
 </head>
-<body class="bg-gray-900 font-sans min-h-screen flex justify-center print:bg-white print:block overflow-hidden">
+<body class="bg-pink-50 font-sans min-h-screen flex justify-center print:bg-white print:block overflow-hidden">
 
     <!-- ========================================= -->
     <!-- TAMPILAN LAPORAN UNTUK CETAK PDF -->
     <!-- ========================================= -->
     <div id="print-layout" class="hidden print:block w-full bg-white text-black font-serif overflow-visible">
-        <div class="text-center mb-6 border-b-4 border-double border-black pb-4">
-            <h1 class="text-2xl font-bold uppercase tracking-widest">Laporan Keuangan Kas Kelas</h1>
-            <p class="text-md mt-1 font-semibold">Program Studi / Fakultas</p>
-            <p class="text-sm mt-1" id="print-week-info">Periode Pembukuan s/d Minggu ke-2</p>
+        <div class="text-center mb-6 border-b-4 border-double border-pink-800 pb-4 flex flex-col items-center">
+            <!-- Tempat Logo PDF -->
+            <img id="print-logo" src="" alt="Logo Kelas" class="h-16 w-16 object-contain mb-2 hidden">
+            <h1 class="text-2xl font-bold uppercase tracking-widest text-pink-900" id="print-class-name">Laporan Keuangan Kas Kelas</h1>
+            <p class="text-sm mt-1" id="print-week-info">Periode Pembukuan s/d Minggu ke-1</p>
             <p class="text-sm text-gray-600" id="print-date">Tanggal Cetak: </p>
         </div>
 
         <!-- Ringkasan Keuangan 4 Kolom -->
         <div class="flex justify-between mb-8 text-sm">
-            <div class="w-1/4 border border-gray-400 p-3 text-center bg-gray-50">
-                <p class="font-bold text-xs uppercase text-gray-600 mb-1">Saldo Smt. Sebelumnya</p>
-                <p class="text-base font-bold text-blue-700" id="print-prev-balance">Rp 0</p>
+            <div class="w-1/4 border border-pink-200 p-3 text-center bg-pink-50">
+                <p class="font-bold text-xs uppercase text-pink-600 mb-1">Saldo Smt. Sebelumnya</p>
+                <p class="text-base font-bold text-pink-800" id="print-prev-balance">Rp 0</p>
             </div>
-            <div class="w-1/4 border border-gray-400 p-3 text-center mx-2">
-                <p class="font-bold text-xs uppercase text-gray-600 mb-1">Total Pemasukan Baru</p>
+            <div class="w-1/4 border border-pink-200 p-3 text-center mx-2">
+                <p class="font-bold text-xs uppercase text-pink-600 mb-1">Total Pemasukan Baru</p>
                 <p class="text-base font-bold text-green-700" id="print-total-income">Rp 0</p>
             </div>
-            <div class="w-1/4 border border-gray-400 p-3 text-center mr-2">
-                <p class="font-bold text-xs uppercase text-gray-600 mb-1">Total Pengeluaran</p>
+            <div class="w-1/4 border border-pink-200 p-3 text-center mr-2">
+                <p class="font-bold text-xs uppercase text-pink-600 mb-1">Total Pengeluaran</p>
                 <p class="text-base font-bold text-red-700" id="print-total-expense">Rp 0</p>
             </div>
-            <div class="w-1/4 border border-gray-400 p-3 text-center bg-gray-100">
-                <p class="font-bold text-xs uppercase text-gray-800 mb-1">Total Saldo Akhir</p>
-                <p class="text-lg font-extrabold text-black" id="print-balance">Rp 0</p>
+            <div class="w-1/4 border border-pink-300 p-3 text-center bg-pink-100">
+                <p class="font-bold text-xs uppercase text-pink-900 mb-1">Total Saldo Akhir</p>
+                <p class="text-lg font-extrabold text-pink-950" id="print-balance">Rp 0</p>
             </div>
         </div>
 
-        <h2 class="text-lg font-bold mb-3 mt-8 border-l-4 border-black pl-2">Rincian Transaksi (s/d Minggu ke-<span id="print-tx-week"></span>)</h2>
-        <table class="w-full border-collapse border border-gray-400 text-sm mb-8">
+        <h2 class="text-lg font-bold mb-3 mt-8 border-l-4 border-pink-600 pl-2 text-pink-900">Rincian Transaksi (s/d Minggu ke-<span id="print-tx-week"></span>)</h2>
+        <table class="w-full border-collapse border border-pink-200 text-sm mb-8">
             <thead>
-                <tr class="bg-gray-200">
-                    <th class="border border-gray-400 p-2 text-center w-16">Mg. Ke-</th>
-                    <th class="border border-gray-400 p-2 text-left w-24">Tanggal</th>
-                    <th class="border border-gray-400 p-2 text-left">Keterangan</th>
-                    <th class="border border-gray-400 p-2 text-right w-32">Masuk (Rp)</th>
-                    <th class="border border-gray-400 p-2 text-right w-32">Keluar (Rp)</th>
+                <tr class="bg-pink-100 text-pink-900">
+                    <th class="border border-pink-200 p-2 text-center w-16">Mg. Ke-</th>
+                    <th class="border border-pink-200 p-2 text-left w-24">Tanggal</th>
+                    <th class="border border-pink-200 p-2 text-left">Keterangan</th>
+                    <th class="border border-pink-200 p-2 text-right w-32">Masuk (Rp)</th>
+                    <th class="border border-pink-200 p-2 text-right w-32">Keluar (Rp)</th>
                 </tr>
             </thead>
             <tbody id="print-transactions-tbody">
@@ -83,12 +84,12 @@
         </table>
 
         <div class="print-break-inside-avoid">
-            <h2 class="text-lg font-bold mb-3 border-l-4 border-black pl-2">Laporan Tunggakan Anggota Aktif</h2>
-            <table class="w-full border-collapse border border-gray-400 text-sm">
+            <h2 class="text-lg font-bold mb-3 border-l-4 border-pink-600 pl-2 text-pink-900">Laporan Tunggakan Anggota Aktif</h2>
+            <table class="w-full border-collapse border border-pink-200 text-sm">
                 <thead>
-                    <tr class="bg-gray-200">
-                        <th class="border border-gray-400 p-2 text-left">Nama Anggota</th>
-                        <th class="border border-gray-400 p-2 text-right w-40">Total Hutang (Rp)</th>
+                    <tr class="bg-pink-100 text-pink-900">
+                        <th class="border border-pink-200 p-2 text-left">Nama Anggota</th>
+                        <th class="border border-pink-200 p-2 text-right w-40">Total Hutang (Rp)</th>
                     </tr>
                 </thead>
                 <tbody id="print-debts-tbody">
@@ -98,7 +99,7 @@
         </div>
         
         <div class="mt-16 flex justify-end pr-12 print-break-inside-avoid">
-            <div class="text-center">
+            <div class="text-center text-pink-950">
                 <p class="mb-20">Mengetahui,<br>Bendahara Kelas</p>
                 <p class="font-bold underline uppercase">( ........................................ )</p>
                 <p class="text-xs mt-1">NIM:</p>
@@ -111,42 +112,47 @@
     <!-- ========================================= -->
     <!-- CONTAINER APLIKASI MOBILE -->
     <!-- ========================================= -->
-    <div class="w-full max-w-md bg-gray-50 h-[100dvh] flex flex-col shadow-2xl overflow-hidden print:hidden">
+    <div class="w-full max-w-md bg-pink-50/50 h-[100dvh] flex flex-col shadow-2xl overflow-hidden print:hidden">
         
         <!-- HEADER -->
-        <header class="bg-indigo-600 text-white p-6 rounded-b-[2rem] shadow-lg z-10 shrink-0 transition-colors duration-300" id="main-header">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <h1 class="text-2xl font-bold tracking-tight">Kas Mahasiswa</h1>
-                    <div class="flex items-center mt-2 space-x-2 text-indigo-50">
-                        <button id="btn-prev-week" onclick="changeWeek(-1)" class="p-1.5 bg-indigo-700/50 rounded-lg hover:bg-indigo-800 disabled:opacity-30 disabled:cursor-not-allowed transition" title="Mundur ke Minggu Sebelumnya">
-                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                        </button>
-                        <span id="header-week" class="font-bold w-24 text-center text-sm">Minggu ke-1</span>
-                        <button id="btn-next-week" onclick="changeWeek(1)" class="p-1.5 bg-indigo-700/50 rounded-lg hover:bg-indigo-800 disabled:opacity-30 disabled:cursor-not-allowed transition" title="Maju ke Minggu Selanjutnya">
-                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                        </button>
-                    </div>
+        <header class="bg-gradient-to-br from-pink-500 to-rose-600 text-white p-6 rounded-b-[2rem] shadow-lg shadow-pink-200 z-10 shrink-0 transition-colors duration-300" id="main-header">
+            <!-- Bagian Profil Kelas (Logo & Nama) -->
+            <div class="flex items-center space-x-3 mb-4">
+                <div id="header-logo-container" class="hidden w-10 h-10 bg-white/20 rounded-full flex items-center justify-center overflow-hidden shrink-0 border border-pink-300">
+                    <img id="header-logo" src="" alt="Logo" class="w-full h-full object-cover">
+                </div>
+                <h1 class="text-2xl font-bold tracking-tight truncate flex-1" id="header-class-name">Kas Mahasiswa</h1>
+            </div>
+
+            <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center space-x-2 text-pink-50">
+                    <button id="btn-prev-week" onclick="changeWeek(-1)" class="p-1.5 bg-pink-700/40 rounded-lg hover:bg-pink-800 disabled:opacity-30 disabled:cursor-not-allowed transition" title="Mundur ke Minggu Sebelumnya">
+                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                    </button>
+                    <span id="header-week" class="font-bold w-24 text-center text-sm">Minggu ke-1</span>
+                    <button id="btn-next-week" onclick="changeWeek(1)" class="p-1.5 bg-pink-700/40 rounded-lg hover:bg-pink-800 disabled:opacity-30 disabled:cursor-not-allowed transition" title="Maju ke Minggu Selanjutnya">
+                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </button>
                 </div>
                 <div class="flex items-center space-x-1.5">
                     <button id="btn-delete-week" onclick="deleteCurrentWeek()" class="hidden bg-red-500 hover:bg-red-600 p-2 rounded-xl text-white shadow-md transition" title="Batalkan / Hapus Minggu Ini">
                         <i data-lucide="trash-2" class="w-4 h-4"></i>
                     </button>
-                    <button onclick="addNewWeek()" class="bg-indigo-500/50 hover:bg-indigo-400 px-3 py-2 rounded-xl text-xs font-semibold backdrop-blur-sm transition flex items-center shadow-md">
+                    <button onclick="addNewWeek()" class="bg-pink-400/30 hover:bg-pink-400/50 px-3 py-2 rounded-xl text-xs font-semibold backdrop-blur-sm transition flex items-center shadow-inner border border-pink-300/50">
                         <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Minggu
                     </button>
                 </div>
             </div>
             
-            <div class="mt-3">
-                <p class="text-indigo-200 text-xs mb-1 flex justify-between items-center">
+            <div class="mt-4">
+                <p class="text-pink-100 text-xs mb-1 flex justify-between items-center">
                     <span id="header-balance-title">Saldo Akhir Saat Ini:</span>
-                    <span id="header-prev-balance-info" class="text-[10px] bg-indigo-800 px-2 py-0.5 rounded-full">+ Saldo Lama</span>
+                    <span id="header-prev-balance-info" class="text-[10px] bg-pink-800/60 px-2 py-0.5 rounded-full border border-pink-400/30">+ Saldo Lama</span>
                 </p>
                 <h2 class="text-4xl font-extrabold" id="header-balance">Rp 0</h2>
             </div>
             
-            <div id="history-warning" class="hidden mt-3 text-[10px] bg-amber-500 text-amber-900 font-bold px-3 py-1.5 rounded-lg flex items-center">
+            <div id="history-warning" class="hidden mt-3 text-[10px] bg-amber-500 text-amber-900 font-bold px-3 py-1.5 rounded-lg flex items-center shadow-inner">
                 <i data-lucide="history" class="w-3 h-3 mr-1.5"></i>
                 Mode Riwayat: Anda sedang melihat rekap masa lalu.
             </div>
@@ -157,21 +163,21 @@
             
             <!-- TAB: DASHBOARD -->
             <div id="tab-dashboard" class="space-y-6 fade-in block">
-                <button onclick="window.print()" class="w-full bg-amber-400 hover:bg-amber-500 text-amber-900 p-3 rounded-2xl shadow-sm border border-amber-300 flex justify-center items-center font-bold transition transform active:scale-95">
-                    <i data-lucide="file-text" class="w-5 h-5 mr-2"></i>
+                <button onclick="window.print()" class="w-full bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white p-3 rounded-2xl shadow-md border border-pink-300 flex justify-center items-center font-bold transition transform active:scale-95">
+                    <i data-lucide="printer" class="w-5 h-5 mr-2"></i>
                     Cetak Laporan s/d Minggu Ini
                 </button>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-                        <div class="flex items-center text-blue-600 mb-2">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-pink-100">
+                        <div class="flex items-center text-pink-600 mb-2">
                             <i data-lucide="arrow-down-circle" class="w-4 h-4 mr-1"></i>
                             <span class="text-[10px] font-bold uppercase tracking-wider">Total Pemasukan</span>
                         </div>
                         <p class="text-lg font-bold text-gray-800" id="card-income">Rp 0</p>
                     </div>
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-                        <div class="flex items-center text-red-500 mb-2">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-pink-100">
+                        <div class="flex items-center text-rose-500 mb-2">
                             <i data-lucide="arrow-up-circle" class="w-4 h-4 mr-1"></i>
                             <span class="text-[10px] font-bold uppercase tracking-wider">Total Pengeluaran</span>
                         </div>
@@ -181,10 +187,10 @@
 
                 <div>
                     <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
-                        <i data-lucide="alert-circle" class="w-5 h-5 text-amber-500 mr-2"></i>
-                        Tunggakan Mahasiswa
+                        <i data-lucide="alert-circle" class="w-5 h-5 text-rose-400 mr-2"></i>
+                        Tunggakan Anggota
                     </h3>
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden" id="dashboard-debts">
+                    <div class="bg-white rounded-2xl shadow-sm border border-pink-100 overflow-hidden" id="dashboard-debts">
                         <!-- Diisi via JS -->
                     </div>
                 </div>
@@ -199,26 +205,26 @@
 
             <!-- TAB: PEMASUKAN -->
             <div id="tab-income" class="fade-in hidden">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Catat Pemasukan Kas</h2>
-                <form id="form-income" onsubmit="handleAddIncome(event)" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-4">
-                    <div class="bg-blue-50 text-blue-800 text-xs p-3 rounded-xl border border-blue-100 mb-4 flex items-center" id="income-week-info">
-                        <i data-lucide="info" class="w-4 h-4 mr-2"></i> Info Minggu
+                <h2 class="text-xl font-bold text-gray-800 mb-4 text-pink-600">Catat Pemasukan Kas</h2>
+                <form id="form-income" onsubmit="handleAddIncome(event)" class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100 space-y-4">
+                    <div class="bg-pink-50 text-pink-800 text-xs p-3 rounded-xl border border-pink-200 mb-4 flex items-center" id="income-week-info">
+                        <i data-lucide="info" class="w-4 h-4 mr-2 text-pink-500"></i> Info Minggu
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Pilih Anggota</label>
-                        <select id="income-member-id" required class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                        <select id="income-member-id" required class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-pink-400 transition">
                             <!-- Diisi via JS -->
                         </select>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Nominal (Rp)</label>
-                        <input type="number" id="income-amount" required min="1" placeholder="Contoh: 10000" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-indigo-500 transition"/>
+                        <input type="number" id="income-amount" required min="1" placeholder="Contoh: 10000" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-pink-400 transition"/>
                         <div class="flex gap-2 mt-2">
-                            <button type="button" onclick="document.getElementById('income-amount').value = state.kasSettings.weeklyNominal" class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full"><span id="btn-1-week">1 Minggu</span></button>
-                            <button type="button" onclick="document.getElementById('income-amount').value = state.kasSettings.weeklyNominal * 2" class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full">2 Minggu</button>
+                            <button type="button" onclick="document.getElementById('income-amount').value = state.kasSettings.weeklyNominal" class="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full hover:bg-pink-200 transition"><span id="btn-1-week">1 Minggu</span></button>
+                            <button type="button" onclick="document.getElementById('income-amount').value = state.kasSettings.weeklyNominal * 2" class="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full hover:bg-pink-200 transition">2 Minggu</button>
                         </div>
                     </div>
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl transition flex justify-center items-center mt-2">
+                    <button type="submit" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl transition flex justify-center items-center mt-2 shadow-md shadow-pink-200">
                         <i data-lucide="arrow-down-circle" class="w-5 h-5 mr-2"></i>
                         Simpan Pemasukan
                     </button>
@@ -227,21 +233,21 @@
 
             <!-- TAB: PENGELUARAN -->
             <div id="tab-expense" class="fade-in hidden">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Catat Pengeluaran</h2>
-                <form id="form-expense" onsubmit="handleAddExpense(event)" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-4">
-                     <div class="bg-red-50 text-red-800 text-xs p-3 rounded-xl border border-red-100 mb-4 flex items-center" id="expense-week-info">
-                        <i data-lucide="info" class="w-4 h-4 mr-2"></i> Info Minggu
+                <h2 class="text-xl font-bold text-gray-800 mb-4 text-rose-600">Catat Pengeluaran</h2>
+                <form id="form-expense" onsubmit="handleAddExpense(event)" class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100 space-y-4">
+                     <div class="bg-rose-50 text-rose-800 text-xs p-3 rounded-xl border border-rose-200 mb-4 flex items-center" id="expense-week-info">
+                        <i data-lucide="info" class="w-4 h-4 mr-2 text-rose-500"></i> Info Minggu
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Keperluan / Keterangan</label>
-                        <input type="text" id="expense-desc" required placeholder="Contoh: Fotocopy Makalah Kelompok" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-red-500 transition"/>
+                        <input type="text" id="expense-desc" required placeholder="Contoh: Fotocopy Makalah" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-rose-400 transition"/>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Nominal Pengeluaran (Rp)</label>
-                        <input type="number" id="expense-amount" required min="1" placeholder="Contoh: 25000" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-red-500 transition"/>
-                        <p class="text-xs text-gray-500 mt-2">Saldo tersedia: <span class="font-bold text-indigo-600" id="expense-available-balance">Rp 0</span></p>
+                        <input type="number" id="expense-amount" required min="1" placeholder="Contoh: 25000" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-3 outline-none focus:ring-2 focus:ring-rose-400 transition"/>
+                        <p class="text-xs text-gray-500 mt-2">Saldo tersedia: <span class="font-bold text-pink-600" id="expense-available-balance">Rp 0</span></p>
                     </div>
-                    <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-xl transition flex justify-center items-center mt-2">
+                    <button type="submit" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-4 rounded-xl transition flex justify-center items-center mt-2 shadow-md shadow-rose-200">
                         <i data-lucide="arrow-up-circle" class="w-5 h-5 mr-2"></i>
                         Simpan Pengeluaran
                     </button>
@@ -251,42 +257,61 @@
             <!-- TAB: ANGGOTA & PENGATURAN -->
             <div id="tab-members" class="fade-in hidden space-y-6">
                 
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <!-- PROFIL KELAS (BARU) -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-200 bg-gradient-to-b from-white to-pink-50/30">
+                    <h3 class="text-md font-bold text-pink-800 mb-4 flex items-center">
+                        <i data-lucide="image" class="w-5 h-5 mr-2 text-pink-500"></i> Profil Kelas
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Kelas / Organisasi</label>
+                            <input type="text" id="setting-class-name" placeholder="Contoh: Kas Kelas Akuntansi A" onchange="updateProfileSettings()" class="bg-white border text-gray-900 focus:ring-pink-500 focus:border-pink-500 rounded-lg block w-full text-sm border-gray-300 p-2.5 outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">URL Logo (Opsional)</label>
+                            <input type="url" id="setting-class-logo" placeholder="https://link-gambar-logo.png" onchange="updateProfileSettings()" class="bg-white border text-gray-900 focus:ring-pink-500 focus:border-pink-500 rounded-lg block w-full text-sm border-gray-300 p-2.5 outline-none transition">
+                            <p class="text-[10px] text-gray-400 mt-1">Masukkan link gambar (berakhiran .png / .jpg) untuk menampilkan logo di header & PDF.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PENGATURAN KAS -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100">
                     <h3 class="text-md font-bold text-gray-800 mb-4 flex items-center justify-between">
-                        <span class="flex items-center"><i data-lucide="settings" class="w-5 h-5 mr-2 text-gray-500"></i> Pengaturan Kas</span>
-                        <!-- TOMBOL RESET DATA -->
-                        <button onclick="resetData()" class="text-xs bg-red-100 text-red-600 hover:bg-red-200 px-3 py-1.5 rounded-lg font-bold flex items-center transition" title="Hapus semua data dan mulai baru">
+                        <span class="flex items-center"><i data-lucide="settings" class="w-5 h-5 mr-2 text-gray-500"></i> Pengaturan Keuangan</span>
+                        <button onclick="resetData()" class="text-xs bg-rose-100 text-rose-600 hover:bg-rose-200 px-3 py-1.5 rounded-lg font-bold flex items-center transition" title="Hapus semua data dan mulai baru">
                             <i data-lucide="power" class="w-3 h-3 mr-1"></i> Mulai Baru
                         </button>
                     </h3>
                     <div class="space-y-4">
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Saldo Kas Smt. Lalu (Rp)</label>
-                            <div class="flex">
-                                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">Rp</span>
-                                <input type="number" min="0" id="setting-prev-balance" onchange="updateSettings()" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-indigo-500 block flex-1 w-full text-sm border-gray-300 p-2.5">
+                            <div class="flex shadow-sm rounded-lg">
+                                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg font-medium">Rp</span>
+                                <input type="number" min="0" id="setting-prev-balance" onchange="updateSettings()" class="rounded-none rounded-r-lg bg-white border text-gray-900 focus:ring-pink-500 focus:border-pink-500 block flex-1 w-full text-sm border-gray-300 p-2.5 outline-none transition">
                             </div>
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Tarif Kas Mingguan (Rp)</label>
-                            <div class="flex">
-                                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">Rp</span>
-                                <input type="number" min="0" id="setting-weekly-fee" onchange="updateSettings()" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-indigo-500 block flex-1 w-full text-sm border-gray-300 p-2.5">
+                            <div class="flex shadow-sm rounded-lg">
+                                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg font-medium">Rp</span>
+                                <input type="number" min="0" id="setting-weekly-fee" onchange="updateSettings()" class="rounded-none rounded-r-lg bg-white border text-gray-900 focus:ring-pink-500 focus:border-pink-500 block flex-1 w-full text-sm border-gray-300 p-2.5 outline-none transition">
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- DAFTAR ANGGOTA -->
                 <div>
-                    <h2 class="text-lg font-bold text-gray-800 mb-3">Daftar Anggota Aktif</h2>
+                    <h2 class="text-lg font-bold text-pink-900 mb-3">Daftar Anggota Aktif</h2>
                     <form onsubmit="handleAddMember(event)" class="flex gap-2 mb-4">
-                        <input type="text" id="new-member-name" required placeholder="Tambah nama mahasiswa..." class="flex-1 bg-white border border-gray-200 rounded-xl p-3 outline-none focus:ring-2 focus:ring-indigo-500 text-sm"/>
-                        <button type="submit" class="bg-gray-800 text-white p-3 rounded-xl hover:bg-gray-900 transition" title="Tambah Anggota">
+                        <input type="text" id="new-member-name" required placeholder="Tambah nama mahasiswa..." class="flex-1 bg-white border border-pink-200 rounded-xl p-3 outline-none focus:ring-2 focus:ring-pink-400 text-sm shadow-sm"/>
+                        <button type="submit" class="bg-pink-600 text-white p-3 rounded-xl hover:bg-pink-700 transition shadow-sm shadow-pink-200" title="Tambah Anggota">
                             <i data-lucide="user-plus" class="w-5 h-5"></i>
                         </button>
                     </form>
 
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 divide-y divide-gray-50" id="members-list">
+                    <div class="bg-white rounded-2xl shadow-sm border border-pink-100 divide-y divide-pink-50" id="members-list">
                         <!-- Diisi via JS -->
                     </div>
                 </div>
@@ -294,37 +319,41 @@
 
         </main>
 
-        <!-- BOTTOM NAVIGATION -->
-        <nav class="w-full bg-white border-t border-gray-100 flex justify-around p-2 pb-safe z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] shrink-0">
-            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn flex flex-col items-center justify-center w-16 h-12 text-indigo-600 transition-colors duration-200">
+        <!-- BOTTOM NAVIGATION (TEMA PINK) -->
+        <nav class="w-full bg-white border-t border-pink-100 flex justify-around p-2 pb-safe z-20 shadow-[0_-10px_40px_rgba(236,72,153,0.08)] shrink-0">
+            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn flex flex-col items-center justify-center w-16 h-12 text-pink-600 transition-colors duration-200">
                 <div class="icon-container scale-110 mb-1 transition-transform duration-200"><i data-lucide="wallet" class="w-6 h-6"></i></div>
                 <span class="label-text text-[9px] font-bold opacity-100 transition-opacity duration-200">Beranda</span>
             </button>
-            <button onclick="switchTab('income')" id="nav-income" class="nav-btn flex flex-col items-center justify-center w-16 h-12 text-gray-400 hover:text-gray-600 transition-colors duration-200">
+            <button onclick="switchTab('income')" id="nav-income" class="nav-btn flex flex-col items-center justify-center w-16 h-12 text-gray-400 hover:text-pink-400 transition-colors duration-200">
                 <div class="icon-container scale-100 transition-transform duration-200"><i data-lucide="arrow-down-circle" class="w-6 h-6"></i></div>
                 <span class="label-text text-[9px] font-bold opacity-0 transition-opacity duration-200">Masuk</span>
             </button>
-            <button onclick="switchTab('expense')" id="nav-expense" class="nav-btn flex flex-col items-center justify-center w-16 h-12 text-gray-400 hover:text-gray-600 transition-colors duration-200">
+            <button onclick="switchTab('expense')" id="nav-expense" class="nav-btn flex flex-col items-center justify-center w-16 h-12 text-gray-400 hover:text-rose-400 transition-colors duration-200">
                 <div class="icon-container scale-100 transition-transform duration-200"><i data-lucide="arrow-up-circle" class="w-6 h-6"></i></div>
                 <span class="label-text text-[9px] font-bold opacity-0 transition-opacity duration-200">Keluar</span>
             </button>
-            <button onclick="switchTab('members')" id="nav-members" class="nav-btn flex flex-col items-center justify-center w-16 h-12 text-gray-400 hover:text-gray-600 transition-colors duration-200">
+            <button onclick="switchTab('members')" id="nav-members" class="nav-btn flex flex-col items-center justify-center w-16 h-12 text-gray-400 hover:text-pink-400 transition-colors duration-200">
                 <div class="icon-container scale-100 transition-transform duration-200"><i data-lucide="users" class="w-6 h-6"></i></div>
-                <span class="label-text text-[9px] font-bold opacity-0 transition-opacity duration-200">Anggota</span>
+                <span class="label-text text-[9px] font-bold opacity-0 transition-opacity duration-200">Pengaturan</span>
             </button>
         </nav>
 
     </div>
 
     <!-- ========================================= -->
-    <!-- LOGIKA JAVASCRIPT APLIKASI KAS -->
+    <!-- LOGIKA JAVASCRIPT APLIKASI KAS (ANTI HILANG) -->
     <!-- ========================================= -->
     <script>
-        // 1. STATE MANAGEMENT DENGAN PENGAMANAN LOCAL STORAGE
+        // 1. STATE MANAGEMENT DENGAN LOCAL STORAGE
         
-        // Data kosongan (Fresh Start)
         const defaultState = {
             activeTab: 'dashboard',
+            // Profile Kelas (Baru)
+            profile: {
+                className: 'Kas Mahasiswa',
+                logoUrl: ''
+            },
             kasSettings: {
                 previousBalance: 0,
                 weeklyNominal: 5000,
@@ -335,12 +364,12 @@
             transactions: []
         };
 
-        // Mengambil data aman dari Local Storage. Jika tidak ada, pakai default kosongan.
-        let state = JSON.parse(localStorage.getItem('bukuKasDataApp')) || defaultState;
+        // Mengambil data aman dari Local Storage
+        let state = JSON.parse(localStorage.getItem('bukuKasDataAppPink')) || defaultState;
 
-        // FUNGSI AUTO-SAVE INTI (Dipanggil setiap kali ada 1 debu perubahan)
+        // FUNGSI AUTO-SAVE INTI
         const saveState = () => {
-            localStorage.setItem('bukuKasDataApp', JSON.stringify(state));
+            localStorage.setItem('bukuKasDataAppPink', JSON.stringify(state));
         };
 
         // 2. HELPER FUNCTIONS
@@ -376,12 +405,31 @@
             return { totalIncome, totalExpense, currentBalance, memberStats, visibleTx };
         };
 
-        // 4. FUNGSI RENDER UTAMA
+        // 4. FUNGSI RENDER UTAMA (Memperbarui layar)
         const renderApp = () => {
             const stats = getStats();
             const vw = state.kasSettings.viewingWeek;
             const mw = state.kasSettings.maxWeek;
             const isHistoryMode = vw < mw;
+
+            // --- RENDER PROFIL KELAS (BARU) ---
+            document.getElementById('header-class-name').innerText = state.profile.className;
+            document.getElementById('print-class-name').innerText = state.profile.className;
+            
+            const logoContainer = document.getElementById('header-logo-container');
+            const logoImg = document.getElementById('header-logo');
+            const printLogo = document.getElementById('print-logo');
+
+            if (state.profile.logoUrl && state.profile.logoUrl.trim() !== "") {
+                logoImg.src = state.profile.logoUrl;
+                printLogo.src = state.profile.logoUrl;
+                logoContainer.classList.remove('hidden');
+                printLogo.classList.remove('hidden');
+            } else {
+                logoContainer.classList.add('hidden');
+                printLogo.classList.add('hidden');
+            }
+            // ----------------------------------
 
             // Header Tampilan
             document.getElementById('header-week').innerText = `Minggu ke-${vw}`;
@@ -396,15 +444,17 @@
                 btnDeleteWeek.classList.add('hidden');
             }
 
-            // Peringatan Mode Riwayat
+            // Peringatan Mode Riwayat (Warna Header menyesuaikan)
             const headerEl = document.getElementById('main-header');
             const warnEl = document.getElementById('history-warning');
             if (isHistoryMode) {
-                headerEl.classList.replace('bg-indigo-600', 'bg-amber-600');
+                headerEl.classList.replace('from-pink-500', 'from-amber-500');
+                headerEl.classList.replace('to-rose-600', 'to-amber-600');
                 warnEl.classList.remove('hidden');
                 document.getElementById('header-balance-title').innerText = "Saldo Akhir (Pada Waktu Itu):";
             } else {
-                headerEl.classList.replace('bg-amber-600', 'bg-indigo-600');
+                headerEl.classList.replace('from-amber-500', 'from-pink-500');
+                headerEl.classList.replace('to-amber-600', 'to-rose-600');
                 warnEl.classList.add('hidden');
                 document.getElementById('header-balance-title').innerText = "Saldo Akhir Saat Ini:";
             }
@@ -413,8 +463,8 @@
             document.getElementById('btn-next-week').disabled = vw >= mw;
 
             // Form Text
-            document.getElementById('income-week-info').innerHTML = `<i data-lucide="info" class="w-4 h-4 mr-2"></i> Pemasukan ini akan dicatat untuk <b>Minggu ke-${vw}</b>.`;
-            document.getElementById('expense-week-info').innerHTML = `<i data-lucide="info" class="w-4 h-4 mr-2"></i> Pengeluaran ini akan dicatat untuk <b>Minggu ke-${vw}</b>.`;
+            document.getElementById('income-week-info').innerHTML = `<i data-lucide="info" class="w-4 h-4 mr-2 text-pink-500"></i> Pemasukan ini akan dicatat untuk <b>Minggu ke-${vw}</b>.`;
+            document.getElementById('expense-week-info').innerHTML = `<i data-lucide="info" class="w-4 h-4 mr-2 text-rose-500"></i> Pengeluaran ini akan dicatat untuk <b>Minggu ke-${vw}</b>.`;
             document.getElementById('btn-1-week').innerText = `1 Minggu (${formatRupiah(state.kasSettings.weeklyNominal)})`;
             
             const prevBadge = document.getElementById('header-prev-balance-info');
@@ -432,35 +482,35 @@
             const debtsContainer = document.getElementById('dashboard-debts');
             const debtors = stats.memberStats.filter(m => m.debt > 0);
             if (state.members.length === 0) {
-                debtsContainer.innerHTML = `<div class="p-6 text-center text-gray-400 text-sm italic">Belum ada anggota kelas. Silakan tambah anggota di menu "Anggota".</div>`;
+                debtsContainer.innerHTML = `<div class="p-6 text-center text-gray-400 text-sm italic">Belum ada anggota. Silakan tambah di menu Pengaturan.</div>`;
             } else if (debtors.length === 0) {
-                debtsContainer.innerHTML = `<div class="p-6 text-center text-gray-500 text-sm">Luar biasa! Seluruh anggota aktif sudah lunas s/d Minggu ${vw}. 🎉</div>`;
+                debtsContainer.innerHTML = `<div class="p-6 text-center text-pink-500 text-sm font-medium">Luar biasa! Seluruh anggota aktif sudah lunas s/d Minggu ${vw}. 🎉</div>`;
             } else {
-                debtsContainer.innerHTML = `<div class="divide-y divide-gray-50">` + 
+                debtsContainer.innerHTML = `<div class="divide-y divide-pink-50">` + 
                     debtors.map(m => `
-                        <div class="p-4 flex justify-between items-center hover:bg-red-50/30 transition">
+                        <div class="p-4 flex justify-between items-center hover:bg-rose-50/50 transition">
                             <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold mr-3">${m.name.charAt(0).toUpperCase()}</div>
+                                <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold mr-3">${m.name.charAt(0).toUpperCase()}</div>
                                 <div>
                                     <p class="font-semibold text-gray-800 text-sm">${m.name}</p>
                                     <p class="text-xs text-gray-400">Belum lunas s/d Mg. ${vw}</p>
                                 </div>
                             </div>
-                            <div class="text-right"><p class="text-red-500 font-bold text-sm">-${formatRupiah(m.debt)}</p></div>
+                            <div class="text-right"><p class="text-rose-500 font-bold text-sm">-${formatRupiah(m.debt)}</p></div>
                         </div>
                     `).join('') + `</div>`;
             }
 
-            // RIWAYAT TRANSAKSI BERANDA (Dengan Fitur Hapus Satuan)
+            // RIWAYAT TRANSAKSI BERANDA (TEMA PINK)
             document.getElementById('tx-history-title').innerText = isHistoryMode ? `Transaksi s/d Minggu ${vw}` : `Riwayat Transaksi Terakhir`;
             const txContainer = document.getElementById('dashboard-transactions');
             if (stats.visibleTx.length === 0) {
-                txContainer.innerHTML = `<div class="p-4 text-center text-gray-400 text-sm italic border border-dashed rounded-xl">Belum ada transaksi s/d minggu ini.</div>`;
+                txContainer.innerHTML = `<div class="p-4 text-center text-gray-400 text-sm italic border border-dashed border-pink-200 rounded-xl">Belum ada transaksi s/d minggu ini.</div>`;
             } else {
                 txContainer.innerHTML = stats.visibleTx.slice(0, 15).map(tx => `
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center ${tx.week === vw && isHistoryMode ? 'border-amber-400 bg-amber-50' : ''}">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-pink-100 flex justify-between items-center ${tx.week === vw && isHistoryMode ? 'border-amber-300 bg-amber-50' : ''}">
                         <div class="flex items-center flex-1 min-w-0">
-                            <div class="p-2 rounded-xl mr-3 shrink-0 ${tx.type === 'income' ? 'bg-blue-100 text-blue-600' : 'bg-red-100 text-red-500'}">
+                            <div class="p-2 rounded-xl mr-3 shrink-0 ${tx.type === 'income' ? 'bg-pink-100 text-pink-600' : 'bg-rose-100 text-rose-500'}">
                                 <i data-lucide="${tx.type === 'income' ? 'arrow-down-circle' : 'arrow-up-circle'}" class="w-5 h-5"></i>
                             </div>
                             <div class="truncate mr-2">
@@ -469,11 +519,10 @@
                             </div>
                         </div>
                         <div class="flex flex-col items-end shrink-0">
-                            <p class="font-bold text-sm mb-1 ${tx.type === 'income' ? 'text-blue-600' : 'text-red-500'}">
+                            <p class="font-bold text-sm mb-1 ${tx.type === 'income' ? 'text-pink-600' : 'text-rose-500'}">
                                 ${tx.type === 'income' ? '+' : '-'}${formatRupiah(tx.amount)}
                             </p>
-                            <!-- Tombol Hapus Transaksi Satuan -->
-                            <button onclick="deleteSingleTransaction(${tx.id})" class="text-gray-300 hover:text-red-500 transition px-1" title="Batalkan Transaksi Ini">
+                            <button onclick="deleteSingleTransaction(${tx.id})" class="text-gray-300 hover:text-rose-500 transition px-1" title="Batalkan Transaksi Ini">
                                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                             </button>
                         </div>
@@ -484,7 +533,7 @@
             // Dropdown Form Pemasukan
             const memberSelect = document.getElementById('income-member-id');
             if(state.members.length === 0) {
-                 memberSelect.innerHTML = `<option value="">-- Tambah anggota dulu di menu Anggota --</option>`;
+                 memberSelect.innerHTML = `<option value="">-- Tambah anggota dulu di menu Pengaturan --</option>`;
             } else {
                  memberSelect.innerHTML = `<option value="">-- Pilih Anggota --</option>` + 
                 state.members.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
@@ -496,9 +545,9 @@
                  membersList.innerHTML = `<div class="p-6 text-center text-gray-400 text-sm italic">Belum ada anggota.</div>`;
             } else {
                  membersList.innerHTML = stats.memberStats.map(m => `
-                <div class="p-4 flex justify-between items-center hover:bg-gray-50">
+                <div class="p-4 flex justify-between items-center hover:bg-pink-50/50 transition">
                     <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold mr-3">${m.name.charAt(0).toUpperCase()}</div>
+                        <div class="w-10 h-10 rounded-full bg-pink-100 text-pink-700 flex items-center justify-center font-bold mr-3">${m.name.charAt(0).toUpperCase()}</div>
                         <div>
                             <p class="font-semibold text-gray-800 text-sm">${m.name}</p>
                             <p class="text-[10px] text-gray-400">Total byr: ${formatRupiah(m.totalPaid)}</p>
@@ -506,10 +555,10 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         ${m.debt > 0 
-                            ? `<span class="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-1 rounded-full">Hutang ${formatRupiah(m.debt)}</span>`
-                            : `<span class="bg-indigo-100 text-indigo-600 text-[10px] font-bold px-2 py-1 rounded-full">Lunas ✓</span>`
+                            ? `<span class="bg-rose-100 text-rose-600 text-[10px] font-bold px-2 py-1 rounded-full">Hutang ${formatRupiah(m.debt)}</span>`
+                            : `<span class="bg-pink-100 text-pink-600 text-[10px] font-bold px-2 py-1 rounded-full border border-pink-200">Lunas ✓</span>`
                         }
-                        <button onclick="removeMember(${m.id})" class="text-gray-400 hover:text-red-500 hover:bg-red-50 p-1.5 rounded-lg transition" title="Keluarkan Anggota & Tarik Uangnya">
+                        <button onclick="removeMember(${m.id})" class="text-gray-400 hover:text-rose-500 hover:bg-rose-50 p-1.5 rounded-lg transition" title="Keluarkan Anggota & Tarik Uangnya">
                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                         </button>
                     </div>
@@ -518,7 +567,7 @@
             }
 
             // ==========================================
-            // CETAK PDF RENDER (Tidak Boleh Ada Ikon Sampah)
+            // CETAK PDF RENDER
             // ==========================================
             document.getElementById('print-date').innerText = `Tanggal Cetak: ${new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
             document.getElementById('print-week-info').innerText = `Periode Pembukuan s/d Minggu ke-${vw}`;
@@ -531,28 +580,28 @@
 
             document.getElementById('print-transactions-tbody').innerHTML = [...stats.visibleTx].reverse().map(tx => {
                 return `
-                <tr>
-                    <td class="border border-gray-400 p-2 text-center font-bold text-gray-600">${tx.week}</td>
-                    <td class="border border-gray-400 p-2">${formatDate(tx.date)}</td>
-                    <td class="border border-gray-400 p-2">${tx.description}</td>
-                    <td class="border border-gray-400 p-2 text-right text-green-700">${tx.type === 'income' ? formatRupiah(tx.amount) : '-'}</td>
-                    <td class="border border-gray-400 p-2 text-right text-red-700">${tx.type === 'expense' ? formatRupiah(tx.amount) : '-'}</td>
+                <tr class="border-b border-pink-100">
+                    <td class="p-2 text-center font-bold text-gray-600">${tx.week}</td>
+                    <td class="p-2">${formatDate(tx.date)}</td>
+                    <td class="p-2">${tx.description}</td>
+                    <td class="p-2 text-right text-green-700">${tx.type === 'income' ? formatRupiah(tx.amount) : '-'}</td>
+                    <td class="p-2 text-right text-red-700">${tx.type === 'expense' ? formatRupiah(tx.amount) : '-'}</td>
                 </tr>
             `}).join('');
 
             const printDebtsBody = document.getElementById('print-debts-tbody');
             if (debtors.length === 0) {
-                printDebtsBody.innerHTML = `<tr><td colspan="2" class="border border-gray-400 p-2 text-center italic">Semua Mahasiswa Aktif Telah Lunas pada Minggu ${vw}</td></tr>`;
+                printDebtsBody.innerHTML = `<tr><td colspan="2" class="border-b border-pink-100 p-2 text-center italic">Semua Mahasiswa Aktif Telah Lunas pada Minggu ${vw}</td></tr>`;
             } else {
                 printDebtsBody.innerHTML = debtors.map(m => `
-                    <tr>
-                        <td class="border border-gray-400 p-2">${m.name}</td>
-                        <td class="border border-gray-400 p-2 text-right text-red-600 font-bold">${formatRupiah(m.debt)}</td>
+                    <tr class="border-b border-pink-100">
+                        <td class="p-2">${m.name}</td>
+                        <td class="p-2 text-right text-rose-600 font-bold">${formatRupiah(m.debt)}</td>
                     </tr>
                 `).join('');
             }
 
-            // WAJIB: Render ulang ikon setelah menyuntikkan HTML baru
+            // WAJIB: Render ulang ikon
             lucide.createIcons();
         };
 
@@ -568,19 +617,30 @@
             document.getElementById(`tab-${tabName}`).classList.remove('hidden');
             document.getElementById(`tab-${tabName}`).classList.add('block');
 
-            const navColors = { dashboard: 'text-indigo-600', income: 'text-blue-600', expense: 'text-red-500', members: 'text-indigo-600' };
+            const navColors = { dashboard: 'text-pink-600', income: 'text-pink-600', expense: 'text-rose-500', members: 'text-pink-600' };
 
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 const isBtnActive = btn.id === `nav-${tabName}`;
-                btn.className = `nav-btn flex flex-col items-center justify-center w-16 h-12 transition-colors duration-200 ${isBtnActive ? navColors[tabName] : 'text-gray-400 hover:text-gray-600'}`;
-                btn.querySelector('.icon-container').className = `icon-container transition-transform duration-200 ${isBtnActive ? 'scale-110 mb-1' : 'scale-100'}`;
+                btn.className = `nav-btn flex flex-col items-center justify-center w-16 h-12 transition-colors duration-200 ${isBtnActive ? navColors[tabName] : 'text-gray-400 hover:text-pink-400'}`;
+                btn.querySelector('.icon-container').className = `icon-container transition-transform duration-200 ${isBtnActive ? 'scale-110 mb-1 text-pink-500 drop-shadow-sm' : 'scale-100'}`;
                 btn.querySelector('.label-text').className = `label-text text-[9px] font-bold transition-opacity duration-200 ${isBtnActive ? 'opacity-100' : 'opacity-0'}`;
             });
         };
 
-        // 6. EVENT HANDLERS (Aksi-aksi Penting)
+        // 6. EVENT HANDLERS (Aksi-aksi)
 
-        // HAPUS TRANSAKSI SATUAN (BARU)
+        // SIMPAN PROFIL KELAS (BARU)
+        const updateProfileSettings = () => {
+            const newName = document.getElementById('setting-class-name').value.trim();
+            const newLogo = document.getElementById('setting-class-logo').value.trim();
+            
+            if(newName) state.profile.className = newName;
+            state.profile.logoUrl = newLogo; // Boleh kosong
+            
+            saveState();
+            renderApp();
+        };
+
         const deleteSingleTransaction = (txId) => {
             const isConfirmed = confirm("Apakah Anda yakin ingin menghapus / membatalkan transaksi ini?\n\nSaldo akan otomatis disesuaikan kembali.");
             if (isConfirmed) {
@@ -590,14 +650,13 @@
             }
         }
 
-        // RESET SELURUH DATA / MULAI SEMESTER BARU (BARU)
         const resetData = () => {
             const prompt1 = confirm("⚠️ PERINGATAN BAHAYA!\n\nApakah Anda yakin ingin MENGHAPUS SEMUA DATA (Anggota, Transaksi, Saldo) dan memulai dari nol?\n\nSangat disarankan Anda sudah mencetak/PDF laporan terakhir sebelum melakukan ini.");
             if (prompt1) {
                 const prompt2 = confirm("Tindakan ini TIDAK BISA DIBATALKAN. Anda benar-benar yakin?");
                 if (prompt2) {
-                    localStorage.removeItem('bukuKasDataApp'); // Bersihkan memori HP
-                    location.reload(); // Muat ulang layar ke setingan pabrik
+                    localStorage.removeItem('bukuKasDataAppPink'); 
+                    location.reload(); 
                 }
             }
         }
@@ -606,7 +665,7 @@
             const newWeek = state.kasSettings.viewingWeek + delta;
             if (newWeek >= 1 && newWeek <= state.kasSettings.maxWeek) {
                 state.kasSettings.viewingWeek = newWeek;
-                saveState(); // AUTO SAVE
+                saveState(); 
                 renderApp();
             }
         };
@@ -614,7 +673,7 @@
         const addNewWeek = () => {
             state.kasSettings.maxWeek += 1;
             state.kasSettings.viewingWeek = state.kasSettings.maxWeek;
-            saveState(); // AUTO SAVE
+            saveState(); 
             renderApp();
             document.querySelector('main').scrollTop = 0;
         };
@@ -626,7 +685,7 @@
                     state.transactions = state.transactions.filter(t => t.week !== state.kasSettings.maxWeek);
                     state.kasSettings.maxWeek -= 1;
                     state.kasSettings.viewingWeek = state.kasSettings.maxWeek;
-                    saveState(); // AUTO SAVE
+                    saveState(); 
                     renderApp();
                 }
             }
@@ -637,7 +696,7 @@
             const newWeeklyFee = parseInt(document.getElementById('setting-weekly-fee').value);
             if(!isNaN(newPrevBalance) && newPrevBalance >= 0) state.kasSettings.previousBalance = newPrevBalance;
             if(!isNaN(newWeeklyFee) && newWeeklyFee >= 0) state.kasSettings.weeklyNominal = newWeeklyFee;
-            saveState(); // AUTO SAVE
+            saveState(); 
             renderApp();
         };
 
@@ -648,7 +707,7 @@
             if (name) {
                 state.members.push({ id: Date.now(), name: name });
                 input.value = '';
-                saveState(); // AUTO SAVE
+                saveState(); 
                 renderApp();
             }
         };
@@ -661,7 +720,7 @@
                 if (isConfirmed) {
                     state.members = state.members.filter(m => m.id !== id);
                     state.transactions = state.transactions.filter(t => t.memberId !== id);
-                    saveState(); // AUTO SAVE PENTING
+                    saveState(); 
                     renderApp();
                 }
             }
@@ -685,7 +744,7 @@
                 });
                 
                 document.getElementById('form-income').reset();
-                saveState(); // AUTO SAVE
+                saveState(); 
                 renderApp();
                 switchTab('dashboard');
             }
@@ -714,7 +773,7 @@
                 });
                 
                 document.getElementById('form-expense').reset();
-                saveState(); // AUTO SAVE
+                saveState(); 
                 renderApp();
                 switchTab('dashboard');
             }
@@ -724,7 +783,11 @@
         window.onload = () => {
             lucide.createIcons();
             
-            // Masukkan data dari localstorage ke inputan setting di tab Anggota
+            // Sync Input Profil
+            document.getElementById('setting-class-name').value = state.profile.className;
+            document.getElementById('setting-class-logo').value = state.profile.logoUrl;
+
+            // Sync Input Keuangan
             document.getElementById('setting-prev-balance').value = state.kasSettings.previousBalance;
             document.getElementById('setting-weekly-fee').value = state.kasSettings.weeklyNominal;
             
@@ -751,5 +814,4 @@
   
 </body>
 </html>
-
 
